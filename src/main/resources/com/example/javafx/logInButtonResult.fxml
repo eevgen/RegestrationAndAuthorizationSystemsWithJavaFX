@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0d0023;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.controllers.HomeController">
+    <children>
+        <Pane layoutY="93.0" prefHeight="307.0" prefWidth="600.0" style="-fx-background-color: ffffff;">
+            <children>
+                <Text layoutX="97.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to our app" textAlignment="CENTER" wrappingWidth="405.82421875">
+                    <font>
+                        <Font name="Century" size="44.0" />
+                    </font>
+                </Text>
+            <ImageView fitHeight="316.0" fitWidth="562.0" layoutX="142.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../java/assets/welcome.png" />
+               </image>
+            </ImageView>
+            </children>
+        </Pane>
+    </children>
+</Pane>

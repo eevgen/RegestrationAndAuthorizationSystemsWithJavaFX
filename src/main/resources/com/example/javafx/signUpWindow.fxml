@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0d0023;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.controllers.SignUpController">
+    <children>
+        <Pane layoutY="93.0" prefHeight="307.0" prefWidth="600.0" style="-fx-background-color: ffffff;">
+            <children>
+                <Text layoutX="106.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration" textAlignment="CENTER" wrappingWidth="389.82421875">
+                    <font>
+                        <Font name="Century" size="44.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="signUpName" layoutX="85.0" layoutY="69.0" prefHeight="39.0" prefWidth="210.0" promptText="Name...">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </TextField>
+                <Button fx:id="signUpSignUpButton" layoutX="258.0" layoutY="242.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="97.0" style="-fx-background-color: #ffc455;" text="SignUp" textFill="WHITE">
+                    <font>
+                        <Font name="Century" size="19.0" />
+                    </font>
+                </Button>
+            <TextField fx:id="signUpSurname" layoutX="306.0" layoutY="69.0" prefHeight="39.0" prefWidth="210.0" promptText="Surname...">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="signUpPassword" layoutX="86.0" layoutY="170.0" prefHeight="39.0" prefWidth="430.0" promptText="Password">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </PasswordField>
+            <TextField fx:id="signUpNickname" layoutX="86.0" layoutY="119.0" prefHeight="39.0" prefWidth="430.0" promptText="Nickname">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
+            <CheckBox fx:id="signUpCheckBoxMale" layoutX="106.0" layoutY="217.0" mnemonicParsing="false" selected="true" text="Male" />
+            <CheckBox fx:id="signUpCheckBoxFemale" layoutX="169.0" layoutY="217.0" mnemonicParsing="false" text="Female" />
+            </children>
+        </Pane>
+        <Button fx:id="signUpLogInButton" layoutX="466.0" layoutY="14.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="120.0" style="-fx-background-color: #ffc455;" text="LogIn" textFill="WHITE">
+            <font>
+                <Font name="Century" size="19.0" />
+            </font>
+        </Button>
+    </children>
+</Pane>
