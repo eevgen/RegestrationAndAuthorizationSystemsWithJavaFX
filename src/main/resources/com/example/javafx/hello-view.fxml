@@ -31,6 +31,16 @@
                   <Font name="Century" size="19.0" />
                </font>
             </Button>
+            <Text fx:id="nicknameErrorMessage" fill="RED" layoutX="131.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="338.0">
+               <font>
+                  <Font name="Century" size="13.0" />
+               </font>
+            </Text>
+            <Text fx:id="passwordErrorMessage" fill="RED" layoutX="131.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="338.0">
+               <font>
+                  <Font name="Century" size="13.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
       <Button fx:id="signUpButton" layoutX="466.0" layoutY="14.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="120.0" style="-fx-background-color: #ffc455;" text="SignUp" textFill="WHITE">
