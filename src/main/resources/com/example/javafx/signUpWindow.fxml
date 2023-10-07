@@ -11,27 +11,22 @@
     <children>
         <Pane layoutY="93.0" prefHeight="307.0" prefWidth="600.0" style="-fx-background-color: ffffff;">
             <children>
-                <Text layoutX="106.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration" textAlignment="CENTER" wrappingWidth="389.82421875">
-                    <font>
-                        <Font name="Century" size="44.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="signUpName" layoutX="85.0" layoutY="69.0" prefHeight="39.0" prefWidth="210.0" promptText="Name...">
+                <TextField fx:id="signUpName" layoutX="86.0" layoutY="22.0" prefHeight="39.0" prefWidth="210.0" promptText="Name...">
                     <font>
                         <Font size="17.0" />
                     </font>
                 </TextField>
-                <Button fx:id="signUpSignUpButton" layoutX="253.0" layoutY="243.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="97.0" style="-fx-background-color: #ffc455;" text="SignUp" textFill="WHITE">
+                <Button fx:id="signUpSignUpButton" layoutX="248.0" layoutY="237.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="97.0" style="-fx-background-color: #ffc455;" text="SignUp" textFill="WHITE">
                     <font>
                         <Font name="Century" size="19.0" />
                     </font>
                 </Button>
-            <TextField fx:id="signUpSurname" layoutX="306.0" layoutY="69.0" prefHeight="39.0" prefWidth="210.0" promptText="Surname...">
+            <TextField fx:id="signUpSurname" layoutX="307.0" layoutY="22.0" prefHeight="39.0" prefWidth="210.0" promptText="Surname...">
                <font>
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="signUpNickname" layoutX="85.0" layoutY="127.0" prefHeight="39.0" prefWidth="430.0" promptText="Nickname">
+            <TextField fx:id="signUpNickname" layoutX="85.0" layoutY="74.0" prefHeight="39.0" prefWidth="430.0" promptText="Nickname">
                <font>
                   <Font size="17.0" />
                </font>
@@ -41,17 +36,17 @@
                   <Font size="17.0" />
                </font>
             </PasswordField>
-            <Text fx:id="nameErrorMessage" fill="RED" layoutX="85.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="210.0">
+            <Text fx:id="nameErrorMessage" fill="RED" layoutX="86.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="210.0">
                <font>
                   <Font name="Century" size="13.0" />
                </font>
             </Text>
-            <Text fx:id="surnameErrorMessage" fill="RED" layoutX="306.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="210.0">
+            <Text fx:id="surnameErrorMessage" fill="RED" layoutX="307.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="210.0">
                <font>
                   <Font name="Century" size="13.0" />
                </font>
             </Text>
-            <Text fx:id="nicknameErrorMessage" fill="RED" layoutX="86.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="430.0">
+            <Text fx:id="nicknameErrorMessage" fill="RED" layoutX="85.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="430.0">
                <font>
                   <Font name="Century" size="13.0" />
                </font>
@@ -61,7 +56,17 @@
                   <Font name="Century" size="13.0" />
                </font>
             </Text>
-            <Text fx:id="globalErrorsText" fill="RED" layoutX="369.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="187.13671875" />
+            <Text fx:id="globalErrorsText" fill="RED" layoutX="392.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="187.13671875" />
+            <Text fx:id="emailErrorMessage" fill="RED" layoutX="85.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="430.0">
+               <font>
+                  <Font name="Century" size="13.0" />
+               </font>
+            </Text>
+            <TextField fx:id="signUpEmail" layoutX="85.0" layoutY="129.0" prefHeight="39.0" prefWidth="430.0" promptText="Email">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
             </children>
         </Pane>
         <Button fx:id="signUpLogInButton" layoutX="466.0" layoutY="14.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="120.0" style="-fx-background-color: #ffc455;" text="LogIn" textFill="WHITE">
@@ -69,5 +74,10 @@
                 <Font name="Century" size="19.0" />
             </font>
         </Button>
+          <Text fill="WHITE" layoutX="105.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration" textAlignment="CENTER" wrappingWidth="389.82421875">
+              <font>
+                  <Font name="Century" size="44.0" />
+              </font>
+          </Text>
     </children>
 </Pane>

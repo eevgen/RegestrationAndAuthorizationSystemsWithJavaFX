@@ -18,4 +18,8 @@ public interface SignUpInformation {
     final int minSymbolsPasswordField = 5;
     final int maxSymbolsPasswordField = 128;
 
+    //Email
+    final int minSymbolsEmailField = 4;
+    final int maxSymbolsEmailField = 130;
+
 }

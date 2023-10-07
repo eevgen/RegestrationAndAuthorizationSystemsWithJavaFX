@@ -31,6 +31,12 @@ import javafx.stage.Stage;
 public class SignUpController implements SignUpInformation {
 
     @FXML
+    private Text emailErrorMessage;
+
+    @FXML
+    private Text globalErrorsText;
+
+    @FXML
     private Text nameErrorMessage;
 
     @FXML
@@ -38,6 +44,9 @@ public class SignUpController implements SignUpInformation {
 
     @FXML
     private Text passwordErrorMessage;
+
+    @FXML
+    private TextField signUpEmail;
 
     @FXML
     private Button signUpLogInButton;
@@ -59,39 +68,38 @@ public class SignUpController implements SignUpInformation {
 
     @FXML
     private Text surnameErrorMessage;
-    @FXML
-    private Text globalErrorsText;
+
     private final LinkedList<String> listOfEmptyFields = new LinkedList<>();
 
-    private static final String insertQuery = String.format("insert into registration (%s, %s, %s, %s) values (?, ?, ?, ?)",
-            DBConsts.NAME_TABLE, DBConsts.SURNAME_TABLE, DBConsts.NICKNAME_TABLE, DBConsts.PASSWORD_TABLE);
+    private static final String insertQuery = String.format("insert into registration (%s, %s, %s, %s, %s) values (?, ?, ?, ?, ?)",
+            DBConsts.NAME_TABLE, DBConsts.SURNAME_TABLE, DBConsts.NICKNAME_TABLE, DBConsts.PASSWORD_TABLE, DBConsts.EMAIL_TABLE);
 
     @FXML
     void initialize() {
         signUpLogInButton.setOnAction(event -> {
-            signUpLogInButton.getScene().getWindow().hide();
-            loadHelloViewScene();
+            loadScene("hello-view.fxml", signUpLogInButton);
         });
 
         signUpSignUpButton.setOnAction(eventForSignUpButtonInSignUpWindow -> {
-            setToDefaultFields(signUpName, signUpNickname, signUpSurname, signUpPassword);
-            setToDefaultTextErrorsMessages(nameErrorMessage, surnameErrorMessage, nicknameErrorMessage, passwordErrorMessage, globalErrorsText);
+            setToDefaultFields(signUpName, signUpNickname, signUpSurname, signUpPassword, signUpEmail);
+            setToDefaultTextErrorsMessages(nameErrorMessage, surnameErrorMessage, nicknameErrorMessage, passwordErrorMessage, globalErrorsText, emailErrorMessage);
             String name = signUpName.getText();
             String surname = signUpSurname.getText();
             String nickname = signUpNickname.getText();
             String password = signUpPassword.getText();
-            if (!theSameSurnameAndName(name, surname) && checkAllParameters(name, surname, nickname, password)) {
+            String email = signUpEmail.getText();
+            if (!theSameSurnameAndName(name, surname) && checkAllParameters(name, surname, nickname, password, email)) {
                 try (Connection connection = (new ConnectionWithDB()).connectionSetter();
                      PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
                     preparedStatement.setString(1, name);
                     preparedStatement.setString(2, surname);
                     preparedStatement.setString(3, nickname);
                     preparedStatement.setString(4, password);
+                    preparedStatement.setString(5, email);
                     int rowsAffected = preparedStatement.executeUpdate();
                     if (rowsAffected > 0) {
                         System.out.println("All information has been transferred into the DB");
-                        signUpSignUpButton.getScene().getWindow().hide();
-                        loadHelloViewScene();
+                        loadScene("emailVerificationWindow.fxml", signUpSignUpButton);
                     } else {
                         System.err.println("No rows were inserted into the DB");
                     }
@@ -103,29 +111,29 @@ public class SignUpController implements SignUpInformation {
         });
     }
 
-    private void loadHelloViewScene() {
+    protected void loadScene(String fxmlFileName, Button windowObject) {
+        windowObject.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/example/javafx/hello-view.fxml"));
+        loader.setLocation(getClass().getResource("/com/example/javafx/" + fxmlFileName));
         try {
-            loader.load();
+            Parent root = loader.load();
             Stage stage = new Stage();
-            Parent root = loader.getRoot();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
-    private boolean checkAllParameters(String name, String surname, String nickname, String password) {
+    private boolean checkAllParameters(String name, String surname, String nickname, String password, String email) {
         CorrectStructure correctStructure = new CorrectStructure();
         boolean nameBoolean = fieldsTest(name, minSymbolsNameField, maxSymbolsNameField, correctStructure, nameErrorMessage, FieldName.NAME, signUpName);
         boolean surnameBoolean = fieldsTest(surname, minSymbolsSurnameField, maxSymbolsSurnameField, correctStructure, surnameErrorMessage, FieldName.SURNAME, signUpSurname);
         boolean nicknameBoolean = fieldsTest(nickname, minSymbolsNicknameField, maxSymbolsNicknameField, correctStructure, nicknameErrorMessage, FieldName.NICKNAME, signUpNickname);
         boolean passwordBoolean = fieldsTest(password, minSymbolsPasswordField, maxSymbolsPasswordField, correctStructure, passwordErrorMessage, FieldName.PASSWORD, signUpPassword);
+        boolean emailBoolean = fieldsTest(email, minSymbolsEmailField, maxSymbolsEmailField, correctStructure, emailErrorMessage, FieldName.EMAIL, signUpEmail);
         boolean errorMessages = testingListWithEmptyErrorMessages();
-        if (!nameBoolean || !nicknameBoolean || !surnameBoolean || !passwordBoolean || !errorMessages) {
+        if (!nameBoolean || !nicknameBoolean || !surnameBoolean || !passwordBoolean || !emailBoolean || !errorMessages) {
             return false;
         }
         return true;
@@ -156,7 +164,7 @@ public class SignUpController implements SignUpInformation {
                 isOK = false;
             }
         }
-        if (fieldName == FieldName.NICKNAME || fieldName == FieldName.PASSWORD) {
+        if (fieldName == FieldName.NICKNAME || fieldName == FieldName.PASSWORD || fieldName == FieldName.EMAIL) {
             if (correctStructure.containsSpace(word)) {
                 textTable.setText("You have an extra space");
                 isOK = false;
@@ -225,6 +233,11 @@ public class SignUpController implements SignUpInformation {
         PASSWORD {
             public String getName() {
                 return "Password";
+            }
+        },
+        EMAIL {
+            public String getName() {
+                return "Email";
             }
         };
         public abstract String getName();
