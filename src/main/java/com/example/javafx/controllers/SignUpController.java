@@ -1,31 +1,19 @@
 package com.example.javafx.controllers;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.StringJoiner;
-import java.util.stream.IntStream;
 
 import com.example.javafx.CorrectStructure;
-import com.example.javafx.DBConnection.ConnectionWithDB;
 import com.example.javafx.DBConnection.DBConsts;
 import com.example.javafx.SignUpInformation;
+import com.example.javafx.service.WorkWithScenes;
+import dbFunctions.ChangingValuesDB;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
 
 
 public class SignUpController implements SignUpInformation {
@@ -69,6 +57,10 @@ public class SignUpController implements SignUpInformation {
     @FXML
     private Text surnameErrorMessage;
 
+    private final ChangingValuesDB changingValuesDB = new ChangingValuesDB();
+
+    private final WorkWithScenes workWithScenes = new WorkWithScenes();
+
     private final LinkedList<String> listOfEmptyFields = new LinkedList<>();
 
     private static final String insertQuery = String.format("insert into registration (%s, %s, %s, %s, %s) values (?, ?, ?, ?, ?)",
@@ -77,7 +69,7 @@ public class SignUpController implements SignUpInformation {
     @FXML
     void initialize() {
         signUpLogInButton.setOnAction(event -> {
-            loadScene("hello-view.fxml", signUpLogInButton);
+            workWithScenes.loadScene("hello-view.fxml", signUpLogInButton);
         });
 
         signUpSignUpButton.setOnAction(eventForSignUpButtonInSignUpWindow -> {
@@ -89,40 +81,10 @@ public class SignUpController implements SignUpInformation {
             String password = signUpPassword.getText();
             String email = signUpEmail.getText();
             if (!theSameSurnameAndName(name, surname) && checkAllParameters(name, surname, nickname, password, email)) {
-                try (Connection connection = (new ConnectionWithDB()).connectionSetter();
-                     PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-                    preparedStatement.setString(1, name);
-                    preparedStatement.setString(2, surname);
-                    preparedStatement.setString(3, nickname);
-                    preparedStatement.setString(4, password);
-                    preparedStatement.setString(5, email);
-                    int rowsAffected = preparedStatement.executeUpdate();
-                    if (rowsAffected > 0) {
-                        System.out.println("All information has been transferred into the DB");
-                        loadScene("emailVerificationWindow.fxml", signUpSignUpButton);
-                    } else {
-                        System.err.println("No rows were inserted into the DB");
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                changingValuesDB.addValuesToDB(name, surname, nickname, password, email, insertQuery, signUpSignUpButton, "emailVerificationWindow.com");
             }
 
         });
-    }
-
-    protected void loadScene(String fxmlFileName, Button windowObject) {
-        windowObject.getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/example/javafx/" + fxmlFileName));
-        try {
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private boolean checkAllParameters(String name, String surname, String nickname, String password, String email) {
